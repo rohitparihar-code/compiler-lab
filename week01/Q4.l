@@ -13,7 +13,7 @@ int yywrap() {
 }
 
 int main(int argc, char*argv[]) {
-    yyin = fopen(argc > 1 ? argv[1] : "input.txt", "r");
+    yyin = fopen(argc > 1 ? argv[1] : "input.c", "r");
     yylex();
     printf("Number of characters = %d\nNumber of lines = %d\n", ch, l);
     return 0;
