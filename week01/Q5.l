@@ -2,7 +2,7 @@
     // lex program to remove redundant spaces.
     #include <stdio.h>
     #include <string.h>
-    char s[] = " ";
+    char s[] = "";
 %}
 %%
 [\t ]+ fprintf(yyout, " ");
