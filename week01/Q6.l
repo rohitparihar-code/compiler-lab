@@ -2,7 +2,7 @@
     // lex program to remove redundant spaces and add the contents to another file.
     #include <stdio.h>
     #include <string.h>
-    char s[] = " ";
+    char s[1000] = "";
 %}
 %%
 [\t ]+ fprintf(yyout, " ");
@@ -14,8 +14,8 @@ int yywrap() {
 }
 
 int main(int argc, char* argv[]) {
-    yyin = fopen(argc > 1 ? argv[1] : "input.txt", "r");
-    yyout = fopen(argc > 2 ? argv[2] : "output.txt", "w"); 
+    yyin = fopen(argc > 1 ? argv[1] : "input.c", "r");
+    yyout = fopen(argc > 2 ? argv[2] : "output.c", "w"); 
     yylex();
     return 0;
 }
