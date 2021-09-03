@@ -6,9 +6,9 @@ int spaces=0;
 %}
 %%
 stop return 0;
-main|then|endif|enddo|auto|else|long|switch|break|enum|register|typedef|case|extern|return|union|char|float|short|unsigned|const|for|signed|void|continue|goto|sizeof|volatile|default|if|staticwhile|do|int|struct|_Packed|double {printf("Key Word\n"); c_keys++;}
-[a-z_][a-z0-9_]* {printf("Identifier\n"); c_idents++;}
-\+|-|\*|\/|<|<=|==|>=|>|!= {printf("Operator\n"); c_opers++;}
+int|if|then|else|endif|while|do|enddo|print {printf("Key Word\n"); c_keys++;}
+[a-z][a-z0-9]* {printf("Identifier\n"); c_idents++;}
+\+|-|\*|\/|<|<=|==|>=|>|!=|= {printf("Operator\n"); c_opers++;}
 . ;
 \n ;
 %%
