@@ -1,16 +1,20 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+//The struct is a package/stuct containing the symbol and its corresponding details of first set and follow set
+//Note:- string is used to represent a FIRST/FOLLOW set of characters
 struct symbol
 {
-    char sym;
+    char sym;//is the character/symbol of the structure whose details are stored in the struct
     int terminal;//1 if symbol is terminal else 0
     int first_is_set;
     int follow_is_set;
     string first_set;
     string follow_set;
+    //remaining elements of the struct explain themselves
 };
 
+//function to find union of two FIRST sets(strings) and also makes sure the epislon('#') is at the end in the resultant set(string)
 string union_firsts(string A, string B)
 {
     string res="";
@@ -25,7 +29,7 @@ string union_firsts(string A, string B)
     {
         if(B[i]=='#')
             continue;
-        for(j=0; j<n1; j++)// to check if B[i] is present in A
+        for(j=0; j<n1; j++)//loop to check if B[i] is present in set(string) A
         {
             if(B[i]==A[j])
                 break;
@@ -34,24 +38,27 @@ string union_firsts(string A, string B)
             res+=B[i];
     }
 
+    //if epsilon('#') exists in either sets then add it at the end
     if(A[n1-1]=='#' || B[n2-1]=='#')
         res+='#';
 
     return res;
 }
 
+//function to find union of two FOLLOW sets(stings)
 string union_follows(string A, string B)
 {
     int n1=A.length(), n2=B.length(), i, j;
-    string res="";
-    for(i=0; i<n1; i++)
+    string res="";//res is the resultant set of union of A and B
+    for(i=0; i<n1; i++)//copying all characters of A to res
     {
         res+=A[i];
     }
 
+    //for each character in B as B[i] not in res it adds B[i] to res
     for(i=0; i<n2; i++)
     {
-        for(j=0; j<n1; j++)
+        for(j=0; j<n1; j++)//loop to check if B[i] is in  set(string) A
         {
             if(B[i]==A[j])
                 break;
@@ -63,14 +70,26 @@ string union_follows(string A, string B)
     return res;
 }
 
+//function that returns the FIRST set(string) of the parameter symbol sym(NT or T)
 string find_first(vector<string> &productions, vector<struct symbol> &symbols, unordered_map<char, int> symbol_to_index, char sym)
 {
+    //if epsilon is the symbol then it itself will be the FIRST set
+    if(sym=='#')
+        return "#";
+
+    //if FIRST set is already set then return directly 
     int sym_index=symbol_to_index[sym];
     if(symbols[sym_index].first_is_set)
         return symbols[sym_index].first_set;
 
+
     int no_p=productions.size();
-    int find_for_next, p_len, found_first_len;
+    //find_for_next is flag to store whether or not FIRST set of next symbol is to be found based on whether the FIRST set of previous symbol has NULL or not
+    //p_len is the length of the production string
+    int find_for_next, p_len;
+    //res is the FIRST set of the symbol sym that is being computed
+    //FF is short for found FIRST of some symbol during the computaion
+    //A and B are temporary strings used during computation
     string res="", FF, A, B;
     int res_len, FF_len;
     
@@ -78,10 +97,11 @@ string find_first(vector<string> &productions, vector<struct symbol> &symbols, u
 
     for(i=0; i<no_p; i++)
     {
+        //if the productions[i] is the expansion for sym
         if(productions[i][0]==sym)
         {
             res_len=res.length();
-            if(productions[i][2]=='#')
+            if(productions[i][2]=='#')//if productions expands to a epsilon
             {
                 if(res[res_len-1]!='#')
                 {
@@ -94,12 +114,13 @@ string find_first(vector<string> &productions, vector<struct symbol> &symbols, u
                 j=2;
                 find_for_next=1;
                 p_len=productions[i].length();
-                while(find_for_next && j<p_len)
+                while(find_for_next && j<p_len)//keep unioning first set of each symbol until we find a first set without an epsilon
                 {
                     FF=find_first(productions, symbols, symbol_to_index, productions[i][j]);
                     FF_len=FF.length();
-                    if(FF[FF_len-1]=='#')
+                    if(FF[FF_len-1]=='#')//if epsilon is there in the FF set
                     {
+                        //copying non-epsilon symbols from FF to B and unit it with res
                         B="";
                         for(k=0; k<FF_len-1; k++)
                         {
@@ -117,6 +138,7 @@ string find_first(vector<string> &productions, vector<struct symbol> &symbols, u
                     j++;
                 }
 
+                //even if at the end of production there is no non-epsilon containing first set the add epsilon to the first set of the FIRST set of sym
                 if(j==p_len && find_for_next)
                 {
                     res=union_firsts(res, "#");
@@ -132,15 +154,21 @@ string find_first(vector<string> &productions, vector<struct symbol> &symbols, u
     return res;
 }
 
+//function that returns the FOLLOW set(string) of the parameter symbol sym(NT or T)
 string find_follow(vector<string> &productions, vector<struct symbol> &symbols, unordered_map<char, int> symbol_to_index, char sym, char start_symbol)
 {
+    //if FIRST set is already set then return directly 
     int sym_index=symbol_to_index[sym];
     if(symbols[sym_index].follow_is_set)
         return symbols[sym_index].follow_set;
 
     int no_p=productions.size();
-    int find_for_next, p_len, found_first_len;
-    string res="", FF, A, B;//FF is found_follow or found_first
+    //p_len is the length of the production string
+    int p_len;
+    //res is the FOLLOW set of the symbol sym that is being computed
+    //FF is short for found FIRST/FOLLOW of some symbol during the computaion
+    //A and B are temporary strings used during computation
+    string res="", FF, A, B;
     int res_len, FF_len;
     
     int i, j, k;
@@ -150,9 +178,9 @@ string find_follow(vector<string> &productions, vector<struct symbol> &symbols, 
         p_len=productions[i].length();
         for(j=2; j<p_len; j++)
         {
-            if(productions[i][j]==sym)
+            if(productions[i][j]==sym)//if sym is found on the right hand side of a production
             {
-                if(j==p_len-1)
+                if(j==p_len-1)//if sym is the last symbol in the production then find the follow of left hand symbol of the production and union it to the FOLLOW set of sym
                 {
                     if(productions[i][0]!=sym)
                     {
@@ -160,12 +188,12 @@ string find_follow(vector<string> &productions, vector<struct symbol> &symbols, 
                         res=union_follows(res, FF);
                     }
                 }
-                else
+                else//else find FIRST set of the following symbol and union it with the 
                 {
 
                     FF=find_first(productions, symbols, symbol_to_index, productions[i][j+1]);
                     FF_len=FF.length();
-                    if(FF[FF_len-1]=='#')
+                    if(FF[FF_len-1]=='#')//if epsilon is there in the FOLLOW set of the symbol following sym then res=res U {found_FIRST-'#} U {found_FOLLOW}
                     {
                         B="";
                         for(k=0; k<FF_len-1; k++)
@@ -176,7 +204,7 @@ string find_follow(vector<string> &productions, vector<struct symbol> &symbols, 
                         FF=find_follow(productions, symbols, symbol_to_index, productions[i][j+1], start_symbol);
                         res=union_follows(res, FF);
                     }
-                    else
+                    else //else just res=res U found_FIRST
                     {
                         res=union_follows(res, FF);
                     }
@@ -200,6 +228,7 @@ int main()
     cout<<"Enter the number of productions in the grammar : ";
     cin>>no_p;
 
+    //Inputing all the productions
     cout<<"\nEnter the productions in each line (in the format A=X..Z and use # for epsilon) :-\n";
     vector<string> productions(no_p);
     for(i=0; i<no_p; i++)
@@ -207,10 +236,11 @@ int main()
         cin>>productions[i];
     }
 
-    unordered_map<char, int> symbol_to_index;
-    vector<struct symbol> symbols;
-    struct symbol temp;
+    unordered_map<char, int> symbol_to_index;//is  the mapping from symbol to the corresponding index in the symbols list
+    vector<struct symbol> symbols;//is the list of symbols containing the respective details
+    struct symbol temp;//a temporary symbol struc used while push_back ing
 
+    //adding Non-Termnals into symbols list
     for(i=0; i<no_p; i++)
     {
         temp.sym=productions[i][0];
@@ -226,6 +256,7 @@ int main()
         }
     }
 
+    //adding Terminals into symbols list
     for(i=0; i<no_p; i++)
     {
         if(productions[i][2]=='#')
@@ -246,11 +277,13 @@ int main()
         }
     }
 
-    
+    //stores number of symbols
     int no_symbols=symbols.size();
 
+    //program section to fill the FIRST set of every Non-Terminal symbol while traversing through the symbols list
     for(i=0; i<no_symbols; i++)
     {
+        //Calling find_first function to set/find the FIRST set(string) of each NT symbol
         if(symbols[i].first_is_set==0)
         {
             symbols[i].first_set=find_first(productions, symbols, symbol_to_index, symbols[i].sym);
@@ -273,20 +306,23 @@ int main()
         
     }
 
+    //program section that inputs a valid Start symbol of the CFG
     cout<<"\nEnter the starting symbol of the CFG : ";
     char start_symbol, gb;
     int st_sym_index;
     while(1)
     {
         cin>>start_symbol;
-        if(symbol_to_index.find(start_symbol)!=symbol_to_index.end())
+        if(symbol_to_index.find(start_symbol)!=symbol_to_index.end() && symbols[symbol_to_index[start_symbol]].terminal==0)
             break;
         cout<<"Enter a valid NT symbol as start symbol : ";
     }
     st_sym_index=symbol_to_index[start_symbol];
 
+    //program section to fill the FOLLOW set of every Non-Terminal symbol while traversing through the symbols list
     for(i=0; i<no_symbols; i++)
     {
+        //Calling find_follow function to set/find the FOLLOW set(string) of each NT symbol
         if(symbols[i].terminal==0 && symbols[i].follow_is_set==0)
         {
             symbols[i].follow_set=find_follow(productions, symbols, symbol_to_index, symbols[i].sym, start_symbol);
@@ -309,4 +345,5 @@ int main()
 
     }
 
+    return 1;
 }
