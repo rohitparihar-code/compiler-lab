@@ -280,6 +280,7 @@ int main()
     //stores number of symbols
     int no_symbols=symbols.size();
 
+    cout<<"\n";
     //program section to fill the FIRST set of every Non-Terminal symbol while traversing through the symbols list
     for(i=0; i<no_symbols; i++)
     {
@@ -344,6 +345,8 @@ int main()
         }
 
     }
+
+    cout<<"\n";
 
     return 1;
 }
