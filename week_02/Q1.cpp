@@ -105,7 +105,7 @@ string find_first(vector<string> &productions, vector<struct symbol> &symbols, u
             {
                 if(res[res_len-1]!='#')
                 {
-                    res+='#';
+                    res=union_firsts(res, "#");
                     res_len=res.length();
                 }
             }
