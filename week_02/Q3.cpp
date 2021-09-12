@@ -324,7 +324,10 @@ int check_string(vector<string> &productions, vector<struct symbol> &symbols, un
 
                 //pushing symbols of productions[p_no] from back to front onto parse stack
                 for(j=p_len-1; j>1; j--)
-                    parse_stack.push(productions[p_no][j]);
+                {
+                    if(productions[p_no][j]!='#')
+                        parse_stack.push(productions[p_no][j]);
+                }
 
             }
             else
