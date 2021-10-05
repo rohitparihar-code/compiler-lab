@@ -41,6 +41,7 @@ void print_sets()
 void print_parse_table()
 {
     set<char> s = symbol_set;
+    symbol_set.insert('$');
     s.insert('$');
     cout << "  ";
     for (auto m = s.begin(); m != s.end(); m++)
@@ -256,6 +257,83 @@ void calculate_parse_table()
     }
 }
 
+int get_index_in_symbol_set(char c)
+{
+    int i = 0;
+    auto j = symbol_set.begin();
+    while (i < symbol_set.size() && j != symbol_set.end())
+    {
+        if (*j == c)
+            return i;
+        i++;
+        j++;
+    }
+    return -1;
+}
+
+int index_from_action(string action)
+{
+    if (action == "--") return -1;
+    string temp = action.substr(1, action.size() - 1);
+    int res = stoi(temp);
+    return res;
+}
+
+bool check_string(string str)
+{
+    str.append("$");
+    stack<int> states; // will contain states
+    states.push(0);
+    stack<char> chr; // will contain characters from the string
+        
+    int cnt=0;
+
+    int i = 0, l = str.size();
+
+    while (!states.empty() && i < l)
+    {
+        int state_i = states.top();
+        int char_i = get_index_in_symbol_set(str[i]);
+        if (char_i == -1)
+            return false;
+
+        string action = parse_table[state_i][char_i];
+        if (action == "@") return true;
+        int ind = index_from_action(action);
+        cnt++;
+        if(cnt>=20)
+            return false;
+        if (action[0] == 'S')
+        {
+            chr.push(str[i]);
+            states.push(ind);
+            i++;
+        }
+        else if (action[0] == 'R')
+        {
+            string prod = productions[ind];
+            int len = prod.length() - 2;
+            for (int j = 0; j < len; j++)
+            {
+                states.pop();
+                chr.pop();
+            }
+            chr.push(prod[0]);
+            len = states.top();
+            action = parse_table[len][get_index_in_symbol_set(chr.top())];
+            if (action[0] == 'I')
+            {
+                states.push(index_from_action(action));
+            }
+            else
+                return false;
+        }
+        else if (action[0] == '@')
+            return true;
+    }
+    return false;
+}
+
 int main()
 {
     copy_productions_from_file();
@@ -280,5 +358,25 @@ int main()
          << endl;
     print_parse_table();
 
+
+    int choice = 1;
+    bool res;
+    string s;
+    while(true) {
+        cout << "\n\n1. Enter a String to check \n0. Exit\nEnter your choice: ";
+        cin >> choice;
+        if (choice == 0) break;
+        else {
+            cout << "\nEnter String: ";
+            cin >> s;
+            res = check_string(s);
+            if (res) {
+                cout << "YES, String " << s << " belongs to the Grammar\n";
+            } else {
+                cout << "NO, it doesn't belong to the grammar" << endl;
+            }
+        }
+    }
+    cout << "\n\nBye (:\n\n";
     return 0;
 }
