@@ -88,6 +88,7 @@ string find_first(char sym)
     if(sym=='#')
         return "#";
 
+
     //if FIRST set is already set then return directly 
     int sym_index=symbol_to_index[sym];
     if(symbols[sym_index].first_is_set)
@@ -203,6 +204,7 @@ string find_follow(char sym, char start_symbol)
                 {
 
                     FF=find_first(productions[i][j+1]);
+
                     FF_len=FF.length();
                     if(FF[FF_len-1]=='#')//if epsilon is there in the FOLLOW set of the symbol following sym then res=res U {found_FIRST-'#} U {found_FOLLOW}
                     {
@@ -516,13 +518,54 @@ int main()
         if(('A'<=temp.sym && temp.sym<='Z') || temp.sym=='@')
             temp.terminal=0;
         else    temp.terminal=1;
-        temp.first_set="";
+        if(temp.terminal)
+        {
+            temp.first_set=temp.sym;
+            temp.first_is_set=1;
+        }
+        else
+        {
+            temp.first_set="";
+            temp.first_is_set=0;
+        }
         temp.follow_set="";
-        temp.first_is_set=0;
         temp.follow_is_set=0;
         symbols.push_back(temp);
         symbol_to_index[*j]=symbols.size()-1;
+        cout<<*j<<"\n";
     }
+
+    temp.sym='@';
+    temp.terminal=0;
+    temp.first_is_set=0;
+    temp.first_set="";
+    temp.follow_is_set=0;
+    temp.follow_set="";
+    symbols.push_back(temp);
+    symbol_to_index['@']=symbols.size()-1;
+    cout<<symbols[symbols.size()-1].sym<<"\n";
+    cout<<"\n";
+
+    /*int j=0;
+    string res;
+    for(j=0; j<symbols.size(); j++)
+    {
+        res=find_first(symbols[j].sym);
+        cout<<"FIRST("<<symbols[j].sym<<")="<<res<<endl;
+    }
+    cout<<"\n";
+    for(j=0; j<symbols.size(); j++)
+    {
+        res=find_follow(symbols[j].sym, '@');
+        cout<<"FOLLOW("<<symbols[j].sym<<")="<<res<<endl;
+    }
+    cout<<"\n";
+
+    for(j=0; j<productions.size(); j++)
+    {
+        cout<<productions[j]<<"\n";
+    }
+    cout<<"\n";*/
 
     calculate_parse_table();
 
