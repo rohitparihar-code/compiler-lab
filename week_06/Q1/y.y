@@ -2,25 +2,32 @@
 #include<stdio.h>
 %}
 %token NUM
-%left '+' '-'
-%left '*' '/'
+%left '+' '-' '*' '/'
 %right NEGATIVE
 %%
-S:  E {printf("\n");}
+S   :   E {printf("\n");}
     ;
-E:  E '+' E {printf("+ ");}
-    |   E '*' E {printf("* ");}
-    |   E '-' E {printf("- ");}
-    |   E '/' E {printf("/ ");}
-    |   '(' E ')'
-    |   '-' E %prec NEGATIVE {printf("-");}
+E   :   E '+' T {printf("+ ");}
+    |   E '-' T {printf("- ");}
+    |   T
+    ;
+T   :   T '*' F {printf("* ");}
+    |   T '/' F {printf("/ ");}
+    |   F
+    ;
+
+F   :   '(' E ')'
     |   NUM     {printf("%d ", yylval);}
     ;
 %%
 
 int main(){
+    printf("Enter the infix expression : ");
     yyparse();
+    printf("\n");
 }
+
+//char st[100] 
 
 int yyerror (char *msg) {
     return printf ("error YACC: %s\n", msg);
