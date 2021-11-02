@@ -68,11 +68,12 @@ int check(char a[])
 }
 int main()
 {
-    int N, ans, i;
+    int n, ans, i;
     char s[50];
-    printf("\nEnter the total lines of declaration\n");
-    scanf("%d", &N);
-    while (N--)
+    printf("\nEnter the total lines of declaration (Ex: int a, b, c; is one line of declaration): ");
+    scanf("%d", &n);
+    cout << "Enter the declarations\n";
+    while (n--)
     {
         scanf(" %[^\n]", s);
         sep(s);
