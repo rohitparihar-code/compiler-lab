@@ -76,29 +76,36 @@ int main()
     i = 0;
     while (n--)
     {
-        cout << i+1 << ": ";
+        cout << i + 1 << ": ";
         scanf(" %[^\n]", s);
         sep(s);
         i++;
     }
 
     int choice;
-    while(1)
+    while (1)
     {
-        cout<<"Enter 0. Exit 1. To check statement : ";
-        cin>>choice;
-        if(choice!=1)
+        cout << "\n0. Exit\n1. Check Expressions\nEnter your choice : ";
+        cin >> choice;
+        if (choice != 1)
         {
-            cout<<"\n";
+            cout << "\n";
             break;
         }
-        
-        printf("Enter the expression:\n");
+
+        cout << "\nEnter the expression: ";
         scanf(" %[^\n]", s);
+
+        cout << "Result: ";
         if (check(s))
-            printf("No Errors Found\n");
+            {
+                cout << "No Errors Found\n\n";
+            }
         else
-            printf("Semantic Error Will Occur\n");
+            {
+                cout << "Semantic Error Will Occur\n\n";
+            }
+        
     }
 
     return 0;
