@@ -81,12 +81,25 @@ int main()
         sep(s);
         i++;
     }
-    printf("Enter the expression:\n");
-    scanf(" %[^\n]", s);
-    if (check(s))
-        printf("No Errors Found\n");
-    else
-        printf("Semantic Error Will Occur\n");
+
+    int choice;
+    while(1)
+    {
+        cout<<"Enter 0. Exit 1. To check statement : ";
+        cin>>choice;
+        if(choice!=1)
+        {
+            cout<<"\n";
+            break;
+        }
+        
+        printf("Enter the expression:\n");
+        scanf(" %[^\n]", s);
+        if (check(s))
+            printf("No Errors Found\n");
+        else
+            printf("Semantic Error Will Occur\n");
+    }
 
     return 0;
 }
