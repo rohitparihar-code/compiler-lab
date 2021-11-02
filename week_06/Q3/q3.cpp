@@ -73,17 +73,20 @@ int main()
     printf("\nEnter the total lines of declaration (Ex: int a, b, c; is one line of declaration): ");
     scanf("%d", &n);
     cout << "Enter the declarations\n";
+    i = 0;
     while (n--)
     {
+        cout << i+1 << ": ";
         scanf(" %[^\n]", s);
         sep(s);
+        i++;
     }
     printf("Enter the expression:\n");
     scanf(" %[^\n]", s);
     if (check(s))
-        printf("Correct\n");
+        printf("No Errors Found\n");
     else
-        printf("Semantic error\n");
+        printf("Semantic Error Will Occur\n");
 
     return 0;
 }
