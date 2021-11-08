@@ -34,7 +34,7 @@ void quadruple()
             {
                 if (s[i + 1] == 0)
                 {
-                    printf(" =\t%c\t\tt%d\n", line[i + 1], t);
+                    printf("= \t%c\t\tt%d\n", line[i + 1], t);
                     s[i + 1] = t++;
                 }
     
@@ -62,7 +62,7 @@ void quadruple()
             {
                 if (s[i + 1] == 0)
                 {
-                    printf(" =\t%c\t\tt%d\n", line[i + 1], t);
+                    printf("= \t%c\t\tt%d\n", line[i + 1], t);
                     s[i + 1] = t++;
                 }
             
@@ -80,24 +80,8 @@ void quadruple()
         }
     }
 
-    printf("\n =\tt%d\t\t%c\n", t - 1, line[0]);
+    printf("\n= \tt%d\t\t%c\n", t - 1, line[0]);
 }
-
-// void quadruple()
-// {
-//     string exp;
-//     cout << "Enter the expression: ";
-//     getline(cin, exp);
-
-//     int i = -1;
-//     int l = exp.length();
-//     while (exp[++i] != '=' && i < l)
-//         ;
-//     i += 1;
-//     for (i; i < l; i++)
-//     {
-//     }
-// }
 
 void triple()
 {
@@ -118,7 +102,7 @@ void triple()
     // a1 -> Argument 1
     // a2 -> Argument 2
     // re -> Result
-    printf("op\ta1\ta2\n");
+    printf("no\top\ta1\ta2\n");
     
     for (i = 2; line[i] != '\0'; i++)
     {
@@ -129,17 +113,17 @@ void triple()
             {
                 if (s[i + 1] == 0)
                 {
-                    printf(" =\t%c\tt%d\n", line[i + 1], t);
+                    printf("%d \t= \t%c\n", t, line[i + 1], t);
                     s[i + 1] = t++;
                 }
     
-                printf("%c\t", line[i]);
+                printf("%d \t%c\t", t, line[i]);
     
                 (s[i - 1] == 0) 
                     ? printf("%c\t", line[i - 1]) 
-                    : printf("t%d\t", s[i - 1]);
+                    : printf("%d\t", s[i - 1]);
     
-                //printf("t%d \tt%d", s[i + 1], t);
+                printf("%d", s[i + 1]);
                 
                 s[i - 1] = s[i + 1] = t++;
                 s[i] = 1;
@@ -157,17 +141,17 @@ void triple()
             {
                 if (s[i + 1] == 0)
                 {
-                    printf(" =\t%c\tt%d\n", line[i + 1], t);
+                    printf("%d \t= \t%c\t%d\n", t, line[i + 1], t);
                     s[i + 1] = t++;
                 }
             
-                printf("%c\t", line[i]);
+                printf("%d \t%c\t", t, line[i]);
             
                 (s[i - 1] == 0) 
                     ? printf("%c\t", line[i - 1]) 
-                    : printf("t%d\t", s[i - 1]);
+                    : printf("%d\t", s[i - 1]);
             
-                //printf("t%d \tt%d", s[i + 1], t);
+                printf("%d", s[i + 1]);
             
                 s[i - 1] = s[i + 1] = t++;
                 s[i] = 1;
@@ -175,7 +159,7 @@ void triple()
         }
     }
 
-    printf("\n =\t%c\tt%d\n", line[0], t - 1);
+    printf("\n%d \t= \t%d\t%c\n", t, t - 1, line[0]);
 }
 
 void indirect_triple()
@@ -192,7 +176,7 @@ int main()
         switch (choice)
         {
         case 0:
-            cout << "\nProgram Quit...\nBye (:\n\n";
+            cout << "\nProgram Quit...\n\n";
             return 0;
         case 1:
             quadruple();
