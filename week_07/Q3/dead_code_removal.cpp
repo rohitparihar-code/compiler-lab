@@ -99,7 +99,9 @@ int main()
             if ((pr[i].l == pr[j].l) && !q)
             {
                 pr[i].l = '\0';
-                strcpy(pr[i].r, '\0');
+                char abcd = '\0';
+                const char* x = &abcd;
+                strcpy(pr[i].r, x);
             }
         }
     }
