@@ -15,16 +15,16 @@ void quadruple()
 
     printf("\nEnter Expression: ");
     gets(line);
-    
+
     for (i = 0; i < 20; i++)
         s[i] = 0;
-    
+
     // Op -> Operator
     // a1 -> Argument 1
     // a2 -> Argument 2
     // re -> Result
     printf("op\ta1\ta2\tre\n");
-    
+
     for (i = 2; line[i] != '\0'; i++)
     {
         if (line[i] == '/' || line[i] == '*')
@@ -37,15 +37,15 @@ void quadruple()
                     printf("= \t%c\t\tt%d\n", line[i + 1], t);
                     s[i + 1] = t++;
                 }
-    
+
                 printf("%c\t", line[i]);
-    
-                (s[i - 1] == 0) 
-                    ? printf("%c\t", line[i - 1]) 
+
+                (s[i - 1] == 0)
+                    ? printf("%c\t", line[i - 1])
                     : printf("t%d\t", s[i - 1]);
-    
+
                 printf("t%d \tt%d", s[i + 1], t);
-                
+
                 s[i - 1] = s[i + 1] = t++;
                 s[i] = 1;
             }
@@ -57,7 +57,7 @@ void quadruple()
         if (line[i] == '+' || line[i] == '-')
         {
             printf("\n");
-            
+
             if (s[i] == 0)
             {
                 if (s[i + 1] == 0)
@@ -65,15 +65,15 @@ void quadruple()
                     printf("= \t%c\t\tt%d\n", line[i + 1], t);
                     s[i + 1] = t++;
                 }
-            
+
                 printf("%c\t", line[i]);
-            
-                (s[i - 1] == 0) 
-                    ? printf("%c\t", line[i - 1]) 
+
+                (s[i - 1] == 0)
+                    ? printf("%c\t", line[i - 1])
                     : printf("t%d\t", s[i - 1]);
-            
+
                 printf("t%d \tt%d", s[i + 1], t);
-            
+
                 s[i - 1] = s[i + 1] = t++;
                 s[i] = 1;
             }
@@ -94,16 +94,16 @@ void triple()
 
     printf("\nEnter Expression: ");
     gets(line);
-    
+
     for (i = 0; i < 20; i++)
         s[i] = 0;
-    
+
     // Op -> Operator
     // a1 -> Argument 1
     // a2 -> Argument 2
     // re -> Result
     printf("no\top\ta1\ta2\n");
-    
+
     for (i = 2; line[i] != '\0'; i++)
     {
         if (line[i] == '/' || line[i] == '*')
@@ -116,15 +116,15 @@ void triple()
                     printf("%d \t= \t%c\n", t, line[i + 1], t);
                     s[i + 1] = t++;
                 }
-    
+
                 printf("%d \t%c\t", t, line[i]);
-    
-                (s[i - 1] == 0) 
-                    ? printf("%c\t", line[i - 1]) 
+
+                (s[i - 1] == 0)
+                    ? printf("%c\t", line[i - 1])
                     : printf("%d\t", s[i - 1]);
-    
+
                 printf("%d", s[i + 1]);
-                
+
                 s[i - 1] = s[i + 1] = t++;
                 s[i] = 1;
             }
@@ -136,7 +136,7 @@ void triple()
         if (line[i] == '+' || line[i] == '-')
         {
             printf("\n");
-            
+
             if (s[i] == 0)
             {
                 if (s[i + 1] == 0)
@@ -144,15 +144,15 @@ void triple()
                     printf("%d \t= \t%c\t%d\n", t, line[i + 1], t);
                     s[i + 1] = t++;
                 }
-            
+
                 printf("%d \t%c\t", t, line[i]);
-            
-                (s[i - 1] == 0) 
-                    ? printf("%c\t", line[i - 1]) 
+
+                (s[i - 1] == 0)
+                    ? printf("%c\t", line[i - 1])
                     : printf("%d\t", s[i - 1]);
-            
+
                 printf("%d", s[i + 1]);
-            
+
                 s[i - 1] = s[i + 1] = t++;
                 s[i] = 1;
             }
@@ -173,16 +173,16 @@ void indirect_triple()
 
     printf("\nEnter Expression: ");
     gets(line);
-    
+
     for (i = 0; i < 20; i++)
         s[i] = 0;
-    
+
     // Op -> Operator
     // a1 -> Argument 1
     // a2 -> Argument 2
     // re -> Result
     printf("no\top\ta1\ta2\n");
-    
+
     for (i = 2; line[i] != '\0'; i++)
     {
         if (line[i] == '/' || line[i] == '*')
@@ -195,15 +195,15 @@ void indirect_triple()
                     printf("%d \t= \t%c\n", t, line[i + 1], t);
                     s[i + 1] = t++;
                 }
-    
+
                 printf("%d \t%c\t", t, line[i]);
-    
-                (s[i - 1] == 0) 
-                    ? printf("%c\t", line[i - 1]) 
+
+                (s[i - 1] == 0)
+                    ? printf("%c\t", line[i - 1])
                     : printf("%d\t", s[i - 1]);
-    
+
                 printf("%d", s[i + 1]);
-                
+
                 s[i - 1] = s[i + 1] = t++;
                 s[i] = 1;
             }
@@ -215,7 +215,7 @@ void indirect_triple()
         if (line[i] == '+' || line[i] == '-')
         {
             printf("\n");
-            
+
             if (s[i] == 0)
             {
                 if (s[i + 1] == 0)
@@ -223,15 +223,15 @@ void indirect_triple()
                     printf("%d \t= \t%c\t%d\n", t, line[i + 1], t);
                     s[i + 1] = t++;
                 }
-            
+
                 printf("%d \t%c\t", t, line[i]);
-            
-                (s[i - 1] == 0) 
-                    ? printf("%c\t", line[i - 1]) 
+
+                (s[i - 1] == 0)
+                    ? printf("%c\t", line[i - 1])
                     : printf("%d\t", s[i - 1]);
-            
+
                 printf("%d", s[i + 1]);
-            
+
                 s[i - 1] = s[i + 1] = t++;
                 s[i] = 1;
             }
@@ -241,11 +241,11 @@ void indirect_triple()
     printf("\n%d \t= \t%d\t%c\n", t, t - 1, line[0]);
 
     printf("\nno\tStatement no\n");
-    for(i=0; i<=t-100; i++)
+    for (i = 0; i <= t - 100; i++)
     {
-        printf("%d \t%d\n", i, i+100);
+        printf("%d \t%d\n", i, i + 100);
     }
-    cout<<"\n";
+    cout << "\n";
 }
 
 int main()
