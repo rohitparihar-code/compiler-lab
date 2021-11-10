@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "any": "cpp",
+        "future": "cpp",
+        "tuple": "cpp"
+    }
+}

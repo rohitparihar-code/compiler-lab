@@ -50,6 +50,7 @@ int main()
                 {
                     rhs.insert(rhs.begin() + j + 1 + k, exp[p].second[k]);
                 }
+                cout << rhs << "\n";
                 rhs.erase(rhs.begin() + j);
             }
         }
