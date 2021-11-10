@@ -7,6 +7,9 @@
         "algorithm": "cpp",
         "regex": "cpp",
         "bit": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "cmath": "cpp",
+        "complex": "cpp",
+        "random": "cpp"
     }
 }
