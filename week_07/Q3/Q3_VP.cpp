@@ -46,22 +46,25 @@ int main()
             int p = searchVectorPair(exp, rhs[j], i);
             if (p != -1)
             {
-                for (int k = 0; k < exp[p].second.length(); k++)
+                int k;
+                for (k = 0; k < exp[p].second.length(); k++)
                 {
                     rhs.insert(rhs.begin() + j + 1 + k, exp[p].second[k]);
                 }
-                cout << rhs << "\n";
+                // cout << rhs << "\n";
                 rhs.erase(rhs.begin() + j);
+                j+=k;
             }
         }
         exp[i].second = rhs;
     }
 
-    cout << endl;
-    for (auto i = exp.begin(); i != exp.end(); i++)
+    cout << "\nFinal Expressions\n";
+    for (int i = 0; i < exp.size(); i++)
     {
-        cout << i->first << "=" << i->second << "\n";
+        cout << i+1 << ": " << exp[i].first << "=" << exp[i].second << "\n";
     }
+    cout << endl;
 
     return 0;
 }
