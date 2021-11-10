@@ -1,3 +1,5 @@
+// Dead Code Removal Program
+
 #include <stdio.h>
 #include <conio.h>
 #include <string.h>
@@ -21,15 +23,13 @@ int main()
 
     for (i = 0; i < n; i++)
     {
-        printf("expression %d : ", i+1);
-        //scanf("%c%c%s", &op[i].l, &gb, op[i].r);
-        //printf("\tleft\t");
+        printf("Expression %d : ", i+1);
         op[i].l = getche();
-        //printf("\tright:\t");
         scanf("%c%s", &gb, op[i].r);
     }
 
-    printf("Intermediate Code :\n");
+    // printf("\nIntermediate Code :\n");
+    printf("\n\n");
     for (i = 0; i < n; i++)
     {
         printf("%c", op[i].l);
@@ -79,7 +79,6 @@ int main()
                     if (l)
                     {
                         a = l - pr[i].r;
-                        //printf("pos: %d",a);
                         pr[i].r[a] = pr[m].l;
                     }
                 }
@@ -87,12 +86,13 @@ int main()
         }
     }
 
-    printf("After eliminating common expression :\n");
+    printf("\nAfter eliminating common expression :\n");
     for (i = 0; i < z; i++)
     {
         printf("%c", pr[i].l);
         printf("%s\n", pr[i].r);
     }
+
     // duplicate production elimination
     for (i = 0; i < z; i++)
     {
@@ -107,7 +107,7 @@ int main()
         }
     }
 
-    printf("Optimized code :\n");
+    printf("\nOptimized code :\n");
     for (i = 0; i < z; i++)
     {
         if (pr[i].l != '\0')
@@ -116,4 +116,6 @@ int main()
             printf("%s\n", pr[i].r);
         }
     }
+
+    printf("\n");
 }
