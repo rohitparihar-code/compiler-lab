@@ -1,3 +1,5 @@
+// Program to convert Intermediate code to Machine-Level-Code/Assembly Code
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -7,13 +9,13 @@ int main()
     string s1, s2, s3, s4, output;
     while (1)
     {
-        cout << "Enter 0.Exit 1.generate machine code : ";
+        cout << "1. Generate machine code\n0. Exit Program\nEnter your choice: ";
         cin >> ch;
         if (ch == 1)
         {
-            cout << "Enter the quadraple form of three-address code : ";
+            cout << "\nEnter the quadraple form of three-address code : ";
             cin >> s1 >> s2 >> s3 >> s4;
-            cout << "Machine code : ";
+            cout << "\nMachine code : ";
             //cout<<s1<<"|"<<s2<<"|"<<s3<<"|"<<s4<<"\n";
             if (s1 == "+")
             {
@@ -41,5 +43,5 @@ int main()
         cout << "\n";
     }
 
-    cout << "Program Exited.\n\n";
+    cout << "\nExiting Program...\n\n";
 }
