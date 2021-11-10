@@ -2,6 +2,11 @@
     "files.associations": {
         "any": "cpp",
         "future": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "*.tcc": "cpp",
+        "algorithm": "cpp",
+        "regex": "cpp",
+        "bit": "cpp",
+        "fstream": "cpp"
     }
 }
